@@ -1,5 +1,40 @@
-[![Build
-status](https://travis-ci.org/inconshreveable/ngrok.svg)](https://travis-ci.org/inconshreveable/ngrok)
+### Thanks https://github.com/inconshreveable/ngrok
+### Thanks https://github.com/prikevs/ngrok
+
+### Authorization logic is copied from https://github.com/prikevs/ngrok
+
+## Chinese steps:
+### 配置本地ngrok服务器
+- yum/brew install golang
+- yum/brew install mercurial
+- git clone https://github.com/kjstart/ngrok
+- cd ngrok
+- make release-all
+- cd bin
+- 申请免费泛域名SSL证书步骤在最后,泛域名只支持通配一级.
+
+vi ngrok_secrets
+
+    alvin Passw0rd
+
+sudo ./ngrokd -tunnelAddr=":8080" -secretPath="./ngrok_secrets" -domain="domain.com" -tlsKey="./privkey.pem" -tlsCrt="./fullchain.pem"
+
+vi confgi.yml
+
+    server_addr: domain.com:8080
+    auth_token: alvin:Passw0rd
+    trust_host_root_certs: true
+    http_proxy: http://proxy:80
+
+./ngrok -config=config.yml -subdomain=test 8888
+
+### 申请泛域名SSL证书
+- git clone https://github.com/certbot/certbot.git
+- ./certbot-auto certonly --manual --preferred-challenges=dns --email info@domain.com --server https://acme-v02.api.letsencrypt.org/directory --agree-tos -d *.domain.com -d domain.com
+- 期间会要求重复添加同名的TXT类型记录到域名上,两条记录都要保留到验证结束.
+- 根据提示复制声称的privkey.pem和fullchain.pem
+- 泛域名只支持通配一级,比如*.test.com的证书不能用于*.sub.test.com
+
 
 # ngrok - Introspected tunnels to localhost ([homepage](https://ngrok.com))
 ### ”I want to expose a local server behind a NAT or firewall to the internet.”
