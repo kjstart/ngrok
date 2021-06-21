@@ -1,7 +1,9 @@
 ### Thanks https://github.com/inconshreveable/ngrok
 ### Thanks https://github.com/prikevs/ngrok
 
-### Authorization logic is copied from https://github.com/prikevs/ngrok
+### Authentication logic is copied from https://github.com/prikevs/ngrok
+
+## Free online SSL cert: https://punchsalad.com/ssl-certificate-generator/
 
 ## Chinese steps:
 ### 配置本地ngrok服务器
